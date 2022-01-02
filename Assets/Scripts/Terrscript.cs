@@ -7,12 +7,14 @@ public class Terrscript : MonoBehaviour, IDamagable
     private PlayerHud _playerHud;
 
     [SerializeField]
+    private GameObject _playerGameObj;
+
+    [SerializeField]
     private GameObject _pointA;
     [SerializeField]
     private GameObject _pointB;
-    [SerializeField]
+
     private int _terSpeed = 3;
-    
     float _terStep;
     bool _isOnA;
     bool _isAttacking;
@@ -24,7 +26,6 @@ public class Terrscript : MonoBehaviour, IDamagable
     {
         _gameCore = Locator.GetObject<GameCore>();
         _playerHud = Locator.GetObject<PlayerHud>();
-
 
         _animator = GetComponent<Animator>();
         ter_spriterend = GetComponent<SpriteRenderer>();
@@ -69,7 +70,7 @@ public class Terrscript : MonoBehaviour, IDamagable
     }
     void OnCollisionEnter2D(Collision2D playercol)
     {
-        if (playercol.gameObject.tag == ("Player"))
+        if (playercol.gameObject == _playerGameObj)
         {
             TerrAtacking();
         }

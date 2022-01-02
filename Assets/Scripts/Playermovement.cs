@@ -4,12 +4,14 @@ using System.Collections;
 public class Playermovement : MonoBehaviour
 {
     [SerializeField]
-    private float zom_speed = 10f;
+    private float zom_speed = 5f;
     [SerializeField]
-    private float zom_run = 4f;
+    private float zom_run = 20f;
     [SerializeField]
     private int zom_jump = 200;
-    private bool _isGrounded;
+
+    private float _horiz;
+
     private bool _canJump;
     private bool _isRunning;
 
@@ -29,36 +31,33 @@ public class Playermovement : MonoBehaviour
         _spriterend = GetComponent<SpriteRenderer>();
         _animatorComponent = GetComponent<Animator>();
         _gameCore.IsDead = false;
+        _gameCore.CanMoving = true;
         _canJump = true;
-
+        _gameCore.IsGrounded = true;
     }
     private void Update()
     {
-        Movable();
-        SetAnimationState();
-        AttackLogic();
-    }
-    void Movable()
-    {
-        if (!_gameCore.IsDead)
+        if (_gameCore.CanMoving & !_gameCore.IsDead)
         {
             JumpLogic();
             MoveLogic();
             Flip();
+            AttackLogic();
         }
+        SetAnimationState();
     }
-    void FixedUpdate()// основные методы
-    {
-        _rb.velocity = Vector2.ClampMagnitude(_rb.velocity, zom_speed); //ограничение по скорости
-    }
+    //void FixedUpdate()  
+    //{
+    //    _rb.velocity = Vector2.ClampMagnitude(_rb.velocity, zom_speed); //ограничение по скорости
+    //}
 
     void Flip() //поворот при ходьбе
     {
-        if (Input.GetAxis("Horizontal") > 0)
+        if (_horiz > 0)
         {
             _spriterend.flipX = false;
         }
-        if (Input.GetAxis("Horizontal") < 0)
+        if (_horiz < 0)
         {
             _spriterend.flipX = true;
         }
@@ -66,21 +65,23 @@ public class Playermovement : MonoBehaviour
     private void MoveLogic() // логика движения
     {
 
-        float horiz = Input.GetAxis("Horizontal");
-        Vector2 movement = new Vector2(horiz, 0f);
-        if (horiz != 0)
+        _horiz = Input.GetAxis("Horizontal");
+
+        Vector2 movement = new Vector2(_horiz, 0f);
+        if (_horiz != 0)
         {
-            _rb.AddForce(movement * zom_speed); // ходьба
-            _isRunning = false;
+            _rb.velocity = new Vector2(_horiz * 9f, _rb.velocity.y);
+            //_rb.AddForce(movement * zom_speed); // другая реализация бега
         }
 
-        if (horiz != 0 && Input.GetKey(KeyCode.LeftShift)) //бег
+        if (_horiz != 0 && Input.GetKey(KeyCode.LeftShift)) //бег
         {
-            _rb.AddForce(movement * zom_run);
+            _rb.velocity = new Vector2(_horiz * 15f, _rb.velocity.y);
+            //_rb.AddForce(movement * zom_run);
             _isRunning = true;
         }
 
-        if (horiz == 0)
+        if (_horiz == 0)
         {
             _animatorComponent.SetInteger("state", 0);
             _isRunning = false;
@@ -90,11 +91,12 @@ public class Playermovement : MonoBehaviour
 
     private void JumpLogic()
     {
-        if (Input.GetButton("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
-            if (_isGrounded && _canJump)
+            if (_gameCore.IsGrounded && _canJump)
             {
-                _rb.AddForce(Vector2.up * zom_jump);
+                _rb.velocity = new Vector2(_rb.velocity.x, 20);
+                //_rb.AddForce(Vector2.up * zom_jump); // другая реализация прыжка
                 _canJump = false;
                 StartCoroutine(ResetJumping());
             }
@@ -119,20 +121,20 @@ public class Playermovement : MonoBehaviour
           }
 
       }
-    void OnCollisionEnter2D(Collision2D grounded) //чтоб прыгал только от земли
+    void OnCollisionStay2D(Collision2D grounded) //чтоб прыгал только от земли
     {
         IsGroundedUpdate(grounded, true);
     }
 
-    private void OnCollisionExit2D(Collision2D grounded)
-    {
-        IsGroundedUpdate(grounded, false);
-    }
+    //private void OnCollisionExit2D(Collision2D grounded)
+    //{
+    //    IsGroundedUpdate(grounded, false);
+    //}
 
     private void IsGroundedUpdate(Collision2D grounded, bool value)
     {
         if (grounded.gameObject.tag == ("Ground"))
-            _isGrounded = value;
+            _gameCore.IsGrounded = value;
     }
     void SetAnimationState()//анимации
     {

@@ -8,6 +8,11 @@ public class GameCore : MonoBehaviour
     public bool IsDead = false;
 
     [HideInInspector]
+    public bool CanMoving = true;
+    [HideInInspector]
+    public bool IsGrounded = true;
+
+    [HideInInspector]
     public int Damage;
     void Awake()
     {

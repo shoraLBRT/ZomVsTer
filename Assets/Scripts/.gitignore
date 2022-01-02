@@ -361,19 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/Library
-/Assets/animations
-/Assets/game coins
-/Assets/haloween background
-/Assets/Last Prefabs
-/Assets/Menu Prefabs
-/Assets/MenuAssets
-/Assets/Prefabs
-/Assets/Prefabs New
-/Assets/Scenes
-/Assets/terrorist character
-/Assets/zombie
-/ProjectSettings
-/Temp
-/Assets/Без имени-2.png
-/Assets/4d21c43589ca5a7cf68308dcff6d6e10.png

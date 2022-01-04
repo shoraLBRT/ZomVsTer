@@ -4,12 +4,9 @@ using System.Collections;
 public class Playermovement : MonoBehaviour
 {
     [SerializeField]
-    private float zom_speed = 5f;
+    private float zom_walk;
     [SerializeField]
-    private float zom_run = 20f;
-    [SerializeField]
-    private int zom_jump = 200;
-
+    private float zom_run;
     private float _horiz;
 
     private bool _canJump;
@@ -30,10 +27,14 @@ public class Playermovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _spriterend = GetComponent<SpriteRenderer>();
         _animatorComponent = GetComponent<Animator>();
+
         _gameCore.IsDead = false;
         _gameCore.CanMoving = true;
         _canJump = true;
-        _gameCore.IsGrounded = true;
+        //_gameCore.IsGrounded = true;
+
+        zom_walk = 9f;
+        zom_run = 15f;
     }
     private void Update()
     {
@@ -46,11 +47,6 @@ public class Playermovement : MonoBehaviour
         }
         SetAnimationState();
     }
-    //void FixedUpdate()  
-    //{
-    //    _rb.velocity = Vector2.ClampMagnitude(_rb.velocity, zom_speed); //ограничение по скорости
-    //}
-
     void Flip() //поворот при ходьбе
     {
         if (_horiz > 0)
@@ -70,14 +66,14 @@ public class Playermovement : MonoBehaviour
         Vector2 movement = new Vector2(_horiz, 0f);
         if (_horiz != 0)
         {
-            _rb.velocity = new Vector2(_horiz * 9f, _rb.velocity.y);
-            //_rb.AddForce(movement * zom_speed); // другая реализация бега
+            _rb.velocity = new Vector2(_horiz * zom_walk, _rb.velocity.y);
+            //_rb.AddForce(movement * zom_speed); // другая реализация ходьбы
         }
 
         if (_horiz != 0 && Input.GetKey(KeyCode.LeftShift)) //бег
         {
-            _rb.velocity = new Vector2(_horiz * 15f, _rb.velocity.y);
-            //_rb.AddForce(movement * zom_run);
+            _rb.velocity = new Vector2(_horiz * zom_run, _rb.velocity.y);
+            //_rb.AddForce(movement * zom_run); другая реализация бега
             _isRunning = true;
         }
 
@@ -93,7 +89,7 @@ public class Playermovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            if (_gameCore.IsGrounded && _canJump)
+            if (_rb.velocity.y == 0 && _canJump)
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, 20);
                 //_rb.AddForce(Vector2.up * zom_jump); // другая реализация прыжка
@@ -110,7 +106,7 @@ public class Playermovement : MonoBehaviour
         _canJump = true;
     }
 
-      private void AttackLogic() // Логика атаки пока не готова
+      private void AttackLogic() // Логика атаки пока не готова, и здесь не нужна. Надо вывести в другой класс
       {
           if (Input.GetKey("e"))
           {
@@ -121,22 +117,20 @@ public class Playermovement : MonoBehaviour
           }
 
       }
-    void OnCollisionStay2D(Collision2D grounded) //чтоб прыгал только от земли
-    {
-        IsGroundedUpdate(grounded, true);
-    }
-
+    //void OnCollisionStay2D(Collision2D grounded) // пока что этот флажок не нужен. Его роль играет _rb.velocity.y == 0
+    //{
+    //    IsGroundedUpdate(grounded, true);
+    //}
     //private void OnCollisionExit2D(Collision2D grounded)
     //{
     //    IsGroundedUpdate(grounded, false);
     //}
-
-    private void IsGroundedUpdate(Collision2D grounded, bool value)
-    {
-        if (grounded.gameObject.tag == ("Ground"))
-            _gameCore.IsGrounded = value;
-    }
-    void SetAnimationState()//анимации
+    //private void IsGroundedUpdate(Collision2D grounded, bool value)
+    //{
+    //    if (grounded.gameObject.tag == ("Ground"))
+    //        _gameCore.IsGrounded = value;
+    //}
+    void SetAnimationState()//анимации здесь не нужны, надо вывести в другой класс
     {
         if (Mathf.Abs(_rb.velocity.x) > 0.1)
         {

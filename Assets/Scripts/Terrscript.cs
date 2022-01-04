@@ -1,7 +1,7 @@
 ﻿using Internal;
 using UnityEngine;
 
-public class Terrscript : MonoBehaviour, IDamagable
+public class Terrscript : MonoBehaviour
 {
     private GameCore _gameCore;
     private PlayerHud _playerHud;
@@ -15,12 +15,12 @@ public class Terrscript : MonoBehaviour, IDamagable
     private GameObject _pointB;
 
     private int _terSpeed = 3;
-    float _terStep;
-    bool _isOnA;
-    bool _isAttacking;
+    private float _terStep;
+    private bool _isOnA;
+    private bool _isAttacking;
 
     private Animator _animator;
-    private SpriteRenderer ter_spriterend;
+    private SpriteRenderer _terspriterend;
 
     private void Start()
     {
@@ -28,7 +28,7 @@ public class Terrscript : MonoBehaviour, IDamagable
         _playerHud = Locator.GetObject<PlayerHud>();
 
         _animator = GetComponent<Animator>();
-        ter_spriterend = GetComponent<SpriteRenderer>();
+        _terspriterend = GetComponent<SpriteRenderer>();
         _isOnA = false;
         _isAttacking = false;
         _terSpeed = 3;
@@ -51,7 +51,7 @@ public class Terrscript : MonoBehaviour, IDamagable
         if (_isAttacking == false)
         {
             _animator.SetInteger("terrstate", 1);
-            ter_spriterend.flipX = true;
+            _terspriterend.flipX = true;
             gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, new Vector2(_pointA.transform.position.x, gameObject.transform.position.y), _terStep);
             if (gameObject.transform.position.x == _pointA.transform.position.x)
                 _isOnA = true;
@@ -62,7 +62,7 @@ public class Terrscript : MonoBehaviour, IDamagable
         if (_isAttacking == false)
         {
             _animator.SetInteger("terrstate", 1);
-            ter_spriterend.flipX = false;
+            _terspriterend.flipX = false;
             gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, new Vector2(_pointB.transform.position.x, gameObject.transform.position.y), _terStep);
             if (gameObject.transform.position.x == _pointB.transform.position.x)
                 _isOnA = false;
@@ -79,19 +79,7 @@ public class Terrscript : MonoBehaviour, IDamagable
     {
         _animator.SetInteger("terrstate", 2);
         _isAttacking = true;
-        TakingDamage(20);
+        _gameCore.TakingDamage(20);
         Invoke("returnToWalking", 1f);
-    }
-
-    public void TakingDamage(int Damage)
-    {
-        _gameCore.PlayerHealth -= Damage;
-        RefreshHP();
-        Debug.Log("takingdamage");
-    }
-    public void RefreshHP()
-    {
-        _playerHud.RefreshHPValue();
-        Debug.Log("refreshing HP");
     }
 }

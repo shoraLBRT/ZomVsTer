@@ -11,3 +11,4 @@ public class Dialog
     public string[] sentences;
     public GameObject[] speakers;
 }
+    

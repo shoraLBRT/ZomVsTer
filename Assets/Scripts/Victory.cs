@@ -21,7 +21,6 @@ public class Victory : MonoBehaviour
             Invoke("toMenu", 3);
         }
     }
-
     void toMenu()
     {
         SceneManager.LoadScene(0);

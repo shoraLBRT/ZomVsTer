@@ -13,6 +13,21 @@ public class DialogManager : MonoBehaviour
     private Queue<GameObject> speakers; 
     public Animator animator;
 
+    //private string nameTEST;
+    //private string sentenceTEST;
+    //private GameObject avatarTEST;
+    //private DialogManager(string nameTEST, string sentenceTEST, GameObject avatarTEST)
+    //{
+    //    this.nameTEST = nameTEST;
+    //    this.sentenceTEST = sentenceTEST;
+    //    this.avatarTEST = avatarTEST;
+    //}
+
+    //void DialogTesting()
+    //{
+    //    DialogManager speechFromAlbert = new DialogManager($"Альберт", "че там лее",);
+    //}
+
     void Start()
     {
         sentences = new Queue<string>();
@@ -49,14 +64,13 @@ public class DialogManager : MonoBehaviour
             EndDialog();
             return;
         }
-        
         string sentence = sentences.Dequeue();
         string name = names.Dequeue();
-        GameObject speaker = speakers.Dequeue();
-        speaker.SetActive(false);
+        GameObject speaker = speakers.Peek();
         StartCoroutine(TypeSentence(sentence));
         StartCoroutine(TypeName(name));
-        showSpeaker(speaker);
+        HideSpeaker();
+        ShowSpeaker(speaker);
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -77,9 +91,14 @@ public class DialogManager : MonoBehaviour
             yield return null;
         }
     }
-    private void showSpeaker(GameObject speaker)
+    private void ShowSpeaker(GameObject speaker)
     {
         speaker.SetActive(true);
+    }
+    private void HideSpeaker()
+    {
+        GameObject _deletedSpeaker = speakers.Dequeue();
+        _deletedSpeaker.SetActive(false);
     }
 
     public void EndDialog()

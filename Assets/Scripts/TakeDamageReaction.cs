@@ -1,7 +1,4 @@
 ﻿using Internal;
-using System;
-using System.Collections;
-using System.Threading;
 using UnityEngine;
 
 public class TakeDamageReaction : MonoBehaviour

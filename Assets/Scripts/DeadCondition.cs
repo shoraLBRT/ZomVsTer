@@ -2,20 +2,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DeadCondition : MonoBehaviour, IDamagable
+public class DeadCondition : MonoBehaviour
 {
     [SerializeField]
-    private GameObject deathlineObj;
+    private GameObject _deathLineObj;
 
     private GameCore _gameCore;
-    private PlayerHud _playerHud;
 
     private Animator _animatorComponent;
 
     private void Start()
     {
         _gameCore = Locator.GetObject<GameCore>();
-        _playerHud = Locator.GetObject<PlayerHud>();
         _animatorComponent = GetComponent<Animator>();
     }
     private void Update()
@@ -33,9 +31,9 @@ public class DeadCondition : MonoBehaviour, IDamagable
     }
     void OnTriggerEnter2D(Collider2D collision) // падение в пропасть
     {
-        if (collision.gameObject == deathlineObj)
+        if (collision.gameObject == _deathLineObj)
         {
-            TakingDamage(100);
+            _gameCore.TakingDamage(100);
             Debug.Log("deathline");
         }
     }
@@ -43,16 +41,5 @@ public class DeadCondition : MonoBehaviour, IDamagable
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         _gameCore.IsDead = false;
-    }
-    public void TakingDamage(int Damage)
-    {
-        _gameCore.PlayerHealth -= Damage;
-        RefreshHP();
-    }
-    public void RefreshHP()
-    {
-        _playerHud.RefreshHPValue();
-
-        Debug.Log("refreshing HP");
     }
 }

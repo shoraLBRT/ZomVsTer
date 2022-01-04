@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerinMenu : MonoBehaviour
+public class PlayerInMenu : MonoBehaviour
 {
+    // Здесь задумывалось и было реализовано создание на фоне ГГ, чтобы он бегал бесконечно направо, и создавался снова.
+    // Абсолютно идиотская реализация, надо сделать фабрику
+
     [SerializeField]
-    private GameObject PlayerInMenu;
+    private GameObject _playerInMenu;
     void Start()
     {
         StartCoroutine(playerRun());
@@ -14,7 +17,7 @@ public class PlayerinMenu : MonoBehaviour
     {
         for (int i = 0; i < 100500; i++)
         {
-            Instantiate(PlayerInMenu, new Vector3(-13, -2, 7), Quaternion.identity);
+            Instantiate(_playerInMenu, new Vector3(-13, -2, 7), Quaternion.identity);
             yield return new WaitForSeconds(4f);
         }
     }

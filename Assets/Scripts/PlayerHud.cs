@@ -17,7 +17,7 @@ public class PlayerHud : MonoBehaviour
         gameObject.GetComponent<Text>().text = $"{_gameCore.PlayerHealth} HP" /*GetGettextHP()*/;
         
     }
-    //public string GetGettextHP()
+    //public string GetGettextHP() // старая реализация отображения ХП
     //{
     //    return $"{_gameCore.PlayerHealth} HP";
     //}

@@ -67,8 +67,8 @@
     <Compile Include="Assets\Scripts\BackToMenu.cs" />
     <Compile Include="Assets\Scripts\BeginEndMessage.cs" />
     <Compile Include="Assets\Scripts\DeadCondition.cs" />
-    <Compile Include="Assets\Scripts\Dialog.cs" />
     <Compile Include="Assets\Scripts\DialogManager.cs" />
+    <Compile Include="Assets\Scripts\DialogParameters.cs" />
     <Compile Include="Assets\Scripts\DialogTrigger.cs" />
     <Compile Include="Assets\Scripts\GameCore.cs" />
     <Compile Include="Assets\Scripts\HeadDestroy.cs" />

@@ -5,28 +5,24 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
-    public Text NameText;
-    public Text DialogText;
-    private GameObject speakerWindow;
+    [SerializeField]
+    private GameObject _helpText2;
+    // Для красивого появления символов
+    [SerializeField]
+    private Text NameTextForTyping;
+    [SerializeField]
+    private Text DialogTextForTyping;
+    //
     private Queue<string> sentences;
     private Queue<string> names;
     private Queue<GameObject> speakers; 
     public Animator animator;
 
-    //private string nameTEST;
-    //private string sentenceTEST;
-    //private GameObject avatarTEST;
-    //private DialogManager(string nameTEST, string sentenceTEST, GameObject avatarTEST)
-    //{
-    //    this.nameTEST = nameTEST;
-    //    this.sentenceTEST = sentenceTEST;
-    //    this.avatarTEST = avatarTEST;
-    //}
+    private GameObject speaker;
 
-    //void DialogTesting()
-    //{
-    //    DialogManager speechFromAlbert = new DialogManager($"Альберт", "че там лее",);
-    //}
+    // Дополнительные переменные для реализации удобного, расширяемого диалогового менеджера.
+    private int _countOfDialogs;
+    private GameObject _deletedSpeaker;
 
     void Start()
     {
@@ -35,8 +31,9 @@ public class DialogManager : MonoBehaviour
         speakers = new Queue<GameObject>();
     }
 
-    public void StartDialog(Dialog dialog)
+    public void StartDialog(DialogParameters dialog)
     {
+        _helpText2.SetActive(false);
         animator.SetBool("isOne", true);
         sentences.Clear();
         names.Clear();
@@ -54,10 +51,11 @@ public class DialogManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
+        _countOfDialogs = sentences.Count; // Запоминаем общее количество реплик. Ниже будем от этого числа отталкиваться.
         DisplayNextSentence();
     }
 
-    public void DisplayNextSentence()
+    private void DisplayNextSentence()
     {
         if (sentences.Count == 0 & names.Count == 0)
         {
@@ -66,28 +64,32 @@ public class DialogManager : MonoBehaviour
         }
         string sentence = sentences.Dequeue();
         string name = names.Dequeue();
-        GameObject speaker = speakers.Peek();
+        if (speakers.Count < _countOfDialogs) // проверяем, если у нас уже была хотя бы одна реплика, значит надо спрятать спикера из прошлой реплики.
+        {
+            HideSpeaker();
+        }
+        speaker = speakers.Peek();
+        _deletedSpeaker = speakers.Dequeue();
         StartCoroutine(TypeSentence(sentence));
         StartCoroutine(TypeName(name));
-        HideSpeaker();
         ShowSpeaker(speaker);
     }
 
     IEnumerator TypeSentence(string sentence)
     {
-        DialogText.text = "";
+        DialogTextForTyping.text = "";
         foreach (char letter in sentence.ToCharArray())
         {
-            DialogText.text += letter;
+            DialogTextForTyping.text += letter;
             yield return null;
         }
     }
     IEnumerator TypeName(string name)
     {
-        NameText.text = "";
+        NameTextForTyping.text = "";
         foreach (char letter in name.ToCharArray())
         {
-            NameText.text += letter;
+            NameTextForTyping.text += letter;
             yield return null;
         }
     }
@@ -97,12 +99,12 @@ public class DialogManager : MonoBehaviour
     }
     private void HideSpeaker()
     {
-        GameObject _deletedSpeaker = speakers.Dequeue();
         _deletedSpeaker.SetActive(false);
     }
 
-    public void EndDialog()
+    private void EndDialog()
     {
         animator.SetBool("isOne", false);
+        speaker.SetActive(false);
     }
 }

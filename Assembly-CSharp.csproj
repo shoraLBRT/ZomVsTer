@@ -76,11 +76,12 @@
     <Compile Include="Assets\Scripts\Locator.cs" />
     <Compile Include="Assets\Scripts\Menu2.cs" />
     <Compile Include="Assets\Scripts\MenuAnimations.cs" />
+    <Compile Include="Assets\Scripts\PlayerAnimations.cs" />
     <Compile Include="Assets\Scripts\PlayerCam.cs" />
     <Compile Include="Assets\Scripts\PlayerHud.cs" />
     <Compile Include="Assets\Scripts\PlayerInMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerInMenuDestroy.cs" />
-    <Compile Include="Assets\Scripts\Playermovement.cs" />
+    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\TakeDamageReaction.cs" />
     <Compile Include="Assets\Scripts\Terrscript.cs" />
     <Compile Include="Assets\Scripts\Victory.cs" />

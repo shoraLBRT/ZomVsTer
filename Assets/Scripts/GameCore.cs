@@ -2,17 +2,22 @@
 using UnityEngine;
 public class GameCore : MonoBehaviour
 {
+    private PlayerHud _playerHud;
+
     public int PlayerHealth = 100; // можно было бы сделать приватным, и доступ к нему только через специальный метод. ХЗ, мб позже сделаю.
+
     [HideInInspector]
-    public bool IsDead = false;
+    public bool IsDead;
     [HideInInspector]
-    public bool CanMoving = true;
+    public bool IsHurted;
     [HideInInspector]
-    public bool IsGrounded = true; //пока что ненужный флажок
+    public bool CanMoving;
+    [HideInInspector]
+    public bool IsGrounded;
+
     [HideInInspector]
     public int Damage;
 
-    private PlayerHud _playerHud;   
     void Awake()
     {
         Locator.Register<GameCore>(this);
@@ -23,6 +28,7 @@ public class GameCore : MonoBehaviour
     }
     public void TakingDamage(int Damage)
     {
+        IsHurted = true;
         PlayerHealth -= Damage;
         Debug.Log("takingdamage");
         _playerHud.RefreshHPValue();

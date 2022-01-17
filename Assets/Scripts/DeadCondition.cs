@@ -8,13 +8,9 @@ public class DeadCondition : MonoBehaviour
     private GameObject _deathLineObj;
 
     private GameCore _gameCore;
-
-    private Animator _animatorComponent;
-
     private void Start()
     {
         _gameCore = Locator.GetObject<GameCore>();
-        _animatorComponent = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -25,7 +21,6 @@ public class DeadCondition : MonoBehaviour
         if (_gameCore.PlayerHealth <= 0)
         {
             _gameCore.IsDead = true;
-            _animatorComponent.SetInteger("state", 10);
             Invoke("Restartlvl", 3);
         }
     }
@@ -33,6 +28,7 @@ public class DeadCondition : MonoBehaviour
     {
         if (collision.gameObject == _deathLineObj)
         {
+            _gameCore.IsDead = true;
             _gameCore.TakingDamage(100);
             Debug.Log("deathline");
         }

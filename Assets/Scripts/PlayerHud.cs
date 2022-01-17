@@ -14,13 +14,9 @@ public class PlayerHud : MonoBehaviour
     void Start()
     {
         _gameCore = Locator.GetObject<GameCore>();
-        gameObject.GetComponent<Text>().text = $"{_gameCore.PlayerHealth} HP" /*GetGettextHP()*/;
+        gameObject.GetComponent<Text>().text = $"{_gameCore.PlayerHealth} HP";
         
     }
-    //public string GetGettextHP() // старая реализация отображения ХП
-    //{
-    //    return $"{_gameCore.PlayerHealth} HP";
-    //}
     public void RefreshHPValue()
     {
         _gameCore.PlayerHealth = (_gameCore.PlayerHealth >= 0 ? _gameCore.PlayerHealth : 0);

@@ -4,7 +4,6 @@ using UnityEngine;
 public class Terrscript : MonoBehaviour
 {
     private GameCore _gameCore;
-    private PlayerHud _playerHud;
 
     [SerializeField]
     private GameObject _playerGameObj;
@@ -25,10 +24,10 @@ public class Terrscript : MonoBehaviour
     private void Start()
     {
         _gameCore = Locator.GetObject<GameCore>();
-        _playerHud = Locator.GetObject<PlayerHud>();
 
         _animator = GetComponent<Animator>();
         _terspriterend = GetComponent<SpriteRenderer>();
+
         _isOnA = false;
         _isAttacking = false;
         _terSpeed = 3;

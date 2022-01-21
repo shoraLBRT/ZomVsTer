@@ -27,44 +27,39 @@ public class Terrscript : MonoBehaviour
 
         _animator = GetComponent<Animator>();
         _terspriterend = GetComponent<SpriteRenderer>();
-
         _isOnA = false;
         _isAttacking = false;
-        _terSpeed = 3;
     }
     private void Update()
     {
+        switch (_isOnA)
+        {
+            case true:
+                EnemyWalkingToPoint(_pointB);
+                _terspriterend.flipX = false;
+                break;
+            case (false):
+                EnemyWalkingToPoint(_pointA);
+                _terspriterend.flipX = true;
+                break;
+        }
         _terStep = _terSpeed * Time.deltaTime;
-        if (_isOnA == true) // если он на точке а, то на надо идти б. Если нет, то на А.
-            EnemyWalkingToB();
-        else
-            EnemyWalkingToA();
     }
     void returnToWalking()
     {
         _isAttacking = false;
         _animator.SetInteger("terrstate", 0);
     }
-    void EnemyWalkingToA()
+    void EnemyWalkingToPoint(GameObject pointName)
     {
         if (_isAttacking == false)
         {
             _animator.SetInteger("terrstate", 1);
-            _terspriterend.flipX = true;
-            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, new Vector2(_pointA.transform.position.x, gameObject.transform.position.y), _terStep);
-            if (gameObject.transform.position.x == _pointA.transform.position.x)
-                _isOnA = true;
-        }
-    }
-    void EnemyWalkingToB()
-    {
-        if (_isAttacking == false)
-        {
-            _animator.SetInteger("terrstate", 1);
-            _terspriterend.flipX = false;
-            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, new Vector2(_pointB.transform.position.x, gameObject.transform.position.y), _terStep);
-            if (gameObject.transform.position.x == _pointB.transform.position.x)
-                _isOnA = false;
+            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, new Vector2(pointName.transform.position.x, gameObject.transform.position.y), _terStep);
+            if (gameObject.transform.position.x == pointName.transform.position.x)
+            {
+                _isOnA = !_isOnA;
+            }
         }
     }
     void OnCollisionEnter2D(Collision2D playercol)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class DialogParameters
+public class DialogContent
 {
     public string[] names;
     [TextArea(3, 10)]

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInMenuDestroy : MonoBehaviour
 {
+    // Абсолютный кал
     private Animator _animatorComponent;
     void Start()
     {

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class PlayerHud : MonoBehaviour
 {
     private string _textHP;
-    private GameCore _gameCore;
+    private PlayerHP _playerHP;
 
     private void Awake()
     {
@@ -13,14 +13,12 @@ public class PlayerHud : MonoBehaviour
     }
     void Start()
     {
-        _gameCore = Locator.GetObject<GameCore>();
-        gameObject.GetComponent<Text>().text = $"{_gameCore.PlayerHealth} HP";
-        
+        _playerHP = Locator.GetObject<PlayerHP>();
+        gameObject.GetComponent<Text>().text = $"{_playerHP.PlayerHealth} HP";
     }
     public void RefreshHPValue()
     {
-        _gameCore.PlayerHealth = (_gameCore.PlayerHealth >= 0 ? _gameCore.PlayerHealth : 0);
-        _textHP = _gameCore.PlayerHealth + "HP";
+        _textHP = _playerHP.PlayerHealth + "HP";
         gameObject.GetComponent<Text>().text = _textHP;
     }
 

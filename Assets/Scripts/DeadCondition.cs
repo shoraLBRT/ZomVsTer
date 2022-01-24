@@ -8,17 +8,19 @@ public class DeadCondition : MonoBehaviour
     private GameObject _deathLineObj;
 
     private GameCore _gameCore;
+    private PlayerHP _playerHP;
     private void Start()
     {
         _gameCore = Locator.GetObject<GameCore>();
+        _playerHP = Locator.GetObject<PlayerHP>();
     }
     private void Update()
     {
         DeadProcess();
     }
-    public void DeadProcess() // условие и последствия смерти
+    public void DeadProcess()
     {
-        if (_gameCore.PlayerHealth <= 0)
+        if (_playerHP.PlayerHealth <= 0)
         {
             _gameCore.IsDead = true;
             Invoke("Restartlvl", 3);
@@ -29,8 +31,7 @@ public class DeadCondition : MonoBehaviour
         if (collision.gameObject == _deathLineObj)
         {
             _gameCore.IsDead = true;
-            _gameCore.TakingDamage(100);
-            Debug.Log("deathline");
+            _playerHP.TakingDamage(100);
         }
     }
     void Restartlvl()

@@ -3,6 +3,8 @@ using Internal;
 using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
+    private GameCore _gameCore;
+
     private float zom_walk;
     private float zom_run;
     private float _horiz;
@@ -11,8 +13,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D _rb;
     private SpriteRenderer _spriterend;
-
-    private GameCore _gameCore;
 
     private void Start()
     {
@@ -34,17 +34,23 @@ public class PlayerMovement : MonoBehaviour
             JumpLogic();
             MoveLogic();
             Flip();
-            AttackLogic();
         }
     }
-    void Flip() //поворот при ходьбе
+    void Flip()
     {
         if (_horiz > 0)
+        {
+            _gameCore.IsFliped = false;
             _spriterend.flipX = false;
+        }
         if (_horiz < 0)
+        {
+            _gameCore.IsFliped = true;
             _spriterend.flipX = true;
+        }
+
     }
-    private void MoveLogic() // логика движения
+    private void MoveLogic()
     {
         _horiz = Input.GetAxis("Horizontal");
         if (_horiz != 0)
@@ -72,11 +78,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new
             WaitForSeconds(0.5f);
         _canJump = true;
-    }
-
-      private void AttackLogic() // Логика атаки пока не готова, и здесь не нужна. Надо вывести в другой класс
-    {
-
     }
 
     //void OnCollisionStay2D(Collision2D grounded) // пока что этот флажок не нужен. Его роль играет _rb.velocity.y == 0

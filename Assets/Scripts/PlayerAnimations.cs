@@ -2,10 +2,10 @@
 using UnityEngine;
 public class PlayerAnimations : MonoBehaviour
 {
+    private GameCore _gameCore;
+
     private Animator _animatorComponent;
     private Rigidbody2D _rb;
-
-    private GameCore _gameCore;
 
     private enum AnimationState { idle, walk, run, jump, attack, hurt, die };
     private AnimationState currentAnimationState;
@@ -38,6 +38,8 @@ public class PlayerAnimations : MonoBehaviour
             SetAnimationState(AnimationState.hurt);
         if (_gameCore.IsDead)
             SetAnimationState(AnimationState.die);
+        if (Input.GetButtonDown("Fire1"))
+            SetAnimationState(AnimationState.attack);
     }
     private void SetAnimationState(AnimationState state)
     {

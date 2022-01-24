@@ -4,6 +4,8 @@ using Internal;
 
 public class BeginEndMessage : MonoBehaviour
 {
+    private GameCore _gameCore;
+
     // Здесь разделены gameObject'ы и image чтобы можно было отдельно управлять альфой и включением/отключением самого gameObject'a. По сути костыль, займусь позже
     [SerializeField]
     private Image _beginingImage;
@@ -13,8 +15,6 @@ public class BeginEndMessage : MonoBehaviour
     private GameObject _endingCanvas;
     [SerializeField]
     private GameObject _beginingCanvas;
-
-    private GameCore _gameCore;
     private void Start()
     {
         _gameCore = Locator.GetObject<GameCore>();

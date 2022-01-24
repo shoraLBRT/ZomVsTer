@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu2 : MonoBehaviour
 {
+    // Странная реализация, надо подправить, плюс нейминг класса.
     private Animator _panel2anim;
     public MenuAnimations menuAnimations;
     

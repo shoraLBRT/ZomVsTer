@@ -7,18 +7,20 @@ public class DialogManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject _helpText2;
-    // Для красивого появления символов
+
     [SerializeField]
     private Text NameTextForTyping;
     [SerializeField]
     private Text DialogTextForTyping;
-    //
+
     private Queue<string> sentences;
     private Queue<string> names;
-    private Queue<GameObject> speakers; 
-    public Animator animator;
+    private Queue<GameObject> speakers;
 
-    private GameObject speaker;
+    [SerializeField]
+    private Animator _animator;
+
+    private GameObject _speaker;
 
     // Дополнительные переменные для реализации удобного, расширяемого диалогового менеджера.
     private int _countOfDialogs;
@@ -30,11 +32,11 @@ public class DialogManager : MonoBehaviour
         names = new Queue<string>();
         speakers = new Queue<GameObject>();
     }
-
-    public void StartDialog(DialogParameters dialog)
+    // В методе StartDialog мы сначала расчищаем очереди, а потом заполняем их из массива в классе DiologParametrs, мнгновенно запуская отображение первого предложения.
+    public void StartDialog(DialogContent dialog)
     {
         _helpText2.SetActive(false);
-        animator.SetBool("isOne", true);
+        _animator.SetBool("isOn", true);
         sentences.Clear();
         names.Clear();
         speakers.Clear();
@@ -68,11 +70,11 @@ public class DialogManager : MonoBehaviour
         {
             HideSpeaker();
         }
-        speaker = speakers.Peek();
+        _speaker = speakers.Peek();
         _deletedSpeaker = speakers.Dequeue();
         StartCoroutine(TypeSentence(sentence));
         StartCoroutine(TypeName(name));
-        ShowSpeaker(speaker);
+        ShowSpeaker(_speaker);
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -101,10 +103,9 @@ public class DialogManager : MonoBehaviour
     {
         _deletedSpeaker.SetActive(false);
     }
-
     private void EndDialog()
     {
-        animator.SetBool("isOne", false);
-        speaker.SetActive(false);
+        _animator.SetBool("isOn", false);
+        _speaker.SetActive(false);
     }
 }

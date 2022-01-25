@@ -8,7 +8,7 @@ public class PlayerHP : MonoBehaviour
 
     [HideInInspector]
     public int Damage;
-    private int _playerHealth = 100;
+    private int _playerHealth = 1000;
     public int PlayerHealth
     {
         get { return this._playerHealth; }

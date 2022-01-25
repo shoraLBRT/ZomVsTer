@@ -8,6 +8,10 @@ public class TakeDamageReaction : MonoBehaviour
     private Rigidbody2D _rb;
     private SpriteRenderer _spriterend;
 
+    private bool _canReset;
+    [SerializeField]
+    private GameObject _enemy;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -17,38 +21,48 @@ public class TakeDamageReaction : MonoBehaviour
     }
     private void Update()
     {
-        if (_rb.velocity.y == 0)
-        {
-            _spriterend.color = Color.white;
-            _gameCore.CanMoving = true;
-            _gameCore.IsHurted = false;
-        }
+        ResetFromDamage();
     }
     void OnCollisionEnter2D(Collision2D collision) // получение урона
     {
-
         if (!_gameCore.IsDead)
         {
-            if (collision.gameObject.tag == ("Enemy"))
+            if (collision.gameObject.tag == "Enemy")
             {
-                _rb.AddForce(Vector2.up * 500f);
-                switch (_spriterend.flipX == true)
-                {
-                    case true:
-                        _rb.AddForce(Vector2.left * 500f);
-                        break;
-                    case false:
-                        _rb.AddForce(Vector2.right * 500f);
-                        break;
-                }
+                _canReset = false;
                 _spriterend.color = Color.red;
                 _gameCore.CanMoving = false;
-                //if (_spriterend.flipX == false)
-                //    _rb.AddForce(Vector2.left * 500f);
-                //if (_spriterend.flipX == true)
-                //    _rb.AddForce(Vector2.right * 500f);
-                //_spriterend.color = Color.red;
-                //_gameCore.CanMoving = false;
+                if (collision.gameObject.transform.position.x > gameObject.transform.position.x)
+                {
+                    _rb.AddForce(Vector2.up * 500f);
+                    _rb.AddForce(Vector2.left * 500f);
+                }
+                else if (collision.gameObject.transform.position.x < gameObject.transform.position.x)
+                {
+                    _rb.AddForce(Vector2.right * 500f);
+                    _rb.AddForce(Vector2.up * 500f);
+                }
+                Invoke("TimeOutAfterDamage", 0.1f);
+            }
+        }
+    }
+    private void TimeOutAfterDamage()
+    {
+        _canReset = true;
+    }
+    private void ResetFromDamage()
+    {
+        if (_canReset)
+        {
+            if (_gameCore.IsHurted)
+            {
+                if (_rb.velocity.y == 0)
+                {
+                    _spriterend.color = Color.white;
+                    _gameCore.CanMoving = true;
+                    _gameCore.IsHurted = false;
+                    _canReset = false;
+                }
             }
         }
     }

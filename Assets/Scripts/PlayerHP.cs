@@ -8,6 +8,7 @@ public class PlayerHP : MonoBehaviour
 
     [HideInInspector]
     public int Damage;
+    [SerializeField]
     private int _playerHealth = 100;
     public int PlayerHealth
     {

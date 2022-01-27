@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerHP : MonoBehaviour
 {
-    private PlayerHud _playerHud;
+    private PlayerHPtoScene _playerHPonScene;
     private GameCore _gameCore;
 
     [HideInInspector]
@@ -27,12 +27,13 @@ public class PlayerHP : MonoBehaviour
     private void Start()
     {
         _gameCore = Locator.GetObject<GameCore>();
-        _playerHud = Locator.GetObject<PlayerHud>();
+        _playerHPonScene = Locator.GetObject<PlayerHPtoScene>();
     }
     public void TakingDamage(int Damage)
     {
+        CoinsWallet.LossCoins(1);
         _gameCore.IsHurted = true;
         PlayerHealth -= Damage;
-        _playerHud.RefreshHPValue();
+        _playerHPonScene.RefreshHPValue();
     }
 }

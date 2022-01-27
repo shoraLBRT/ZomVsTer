@@ -8,6 +8,10 @@ public class Terrscript : Enemies
 
     [SerializeField]
     private GameObject _playerGameObj;
+
+    [SerializeField]
+    private GameObject _silverCoins;
+
     [SerializeField]
     private GameObject _pointA;
     [SerializeField]
@@ -98,9 +102,14 @@ public class Terrscript : Enemies
             Invoke("returnToWalking", 1f);
         }
     }
+
     public override void DamageToEnemy(int damage)
     {
         TerHealth -= damage;
+    }
+    protected override void CoinsAfterDie()
+    {
+        Instantiate(_silverCoins, transform.position, Quaternion.identity);
     }
     private void TerrDying()
     {
@@ -108,6 +117,7 @@ public class Terrscript : Enemies
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
         SetAnimationState(AnimationState.die);
+        CoinsAfterDie();
         Destroy(gameObject, 8f);
     }
     private void SetAnimationState(AnimationState state)

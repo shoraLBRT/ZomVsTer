@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinScript : MonoBehaviour
+public class SilverCoinScript : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _player;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == _player)
+        if (collision.gameObject.tag == "Player")
+        {
+            CoinsWallet.CollectCoin(2);
             Destroy(gameObject);
+        }
     }
 }

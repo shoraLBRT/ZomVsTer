@@ -27,14 +27,18 @@ public class PlayerMovement : MonoBehaviour
         zom_walk = 9f;
         zom_run = 15f;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if (_gameCore.CanMoving & !_gameCore.IsDead)
         {
-            JumpLogic();
             MoveLogic();
             Flip();
         }
+    }
+    private void Update()
+    {
+        if(_gameCore.CanMoving & !_gameCore.IsDead)
+            JumpLogic();
     }
     void Flip()
     {
@@ -76,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator ResetJumping()
     {
         yield return new
-            WaitForSeconds(0.5f);
+            WaitForSeconds(0.2f);
         _canJump = true;
     }
 

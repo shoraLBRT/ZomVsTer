@@ -23,6 +23,7 @@ public class DeadCondition : MonoBehaviour
         if (_playerHP.PlayerHealth <= 0)
         {
             _gameCore.IsDead = true;
+            CoinsWallet.LossCoins();
             Invoke("Restartlvl", 3);
         }
     }

@@ -11,7 +11,6 @@ public class Victory : MonoBehaviour
     private void Start()
     {
         Winning.SetActive(false);
-
     }
     void OnTriggerEnter2D(Collider2D collision) // победный триггер
     {

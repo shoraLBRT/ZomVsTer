@@ -66,7 +66,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BackToMenu.cs" />
     <Compile Include="Assets\Scripts\BeginEndMessage.cs" />
-    <Compile Include="Assets\Scripts\CoinScript.cs" />
+    <Compile Include="Assets\Scripts\BronzeCoinScript.cs" />
+    <Compile Include="Assets\Scripts\CoinsOnScene.cs" />
+    <Compile Include="Assets\Scripts\CoinsWallet.cs" />
     <Compile Include="Assets\Scripts\DeadCondition.cs" />
     <Compile Include="Assets\Scripts\DialogManager.cs" />
     <Compile Include="Assets\Scripts\DialogParameters.cs" />
@@ -84,11 +86,12 @@
     <Compile Include="Assets\Scripts\PlayerAnimations.cs" />
     <Compile Include="Assets\Scripts\PlayerCam.cs" />
     <Compile Include="Assets\Scripts\PlayerHP.cs" />
-    <Compile Include="Assets\Scripts\PlayerHud.cs" />
+    <Compile Include="Assets\Scripts\PlayerHPtoScene.cs" />
     <Compile Include="Assets\Scripts\PlayerInMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerInMenuDestroy.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\SavePrefs.cs" />
+    <Compile Include="Assets\Scripts\SilverCoinScript.cs" />
     <Compile Include="Assets\Scripts\TakeDamageReaction.cs" />
     <Compile Include="Assets\Scripts\Terrscript.cs" />
     <Compile Include="Assets\Scripts\Victory.cs" />

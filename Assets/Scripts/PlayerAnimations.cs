@@ -26,7 +26,7 @@ public class PlayerAnimations : MonoBehaviour
             SetAnimationState(AnimationState.jump);
         }  
         if (_rb.velocity.y == 0)
-            if (_rb.velocity.x !=0)
+            if (_rb.velocity.x != 0)
             {
                 SetAnimationState(AnimationState.walk);
                 if (Input.GetKey(KeyCode.LeftShift))

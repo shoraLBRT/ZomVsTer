@@ -34,13 +34,13 @@ public class TakeDamageReaction : MonoBehaviour
                 _gameCore.CanMoving = false;
                 if (collision.gameObject.transform.position.x > gameObject.transform.position.x)
                 {
-                    _rb.AddForce(Vector2.up * 500f);
-                    _rb.AddForce(Vector2.left * 500f);
+                    _rb.AddForce(Vector2.up * 300f);
+                    _rb.AddForce(Vector2.left * 300f);
                 }
                 else if (collision.gameObject.transform.position.x < gameObject.transform.position.x)
                 {
-                    _rb.AddForce(Vector2.right * 500f);
-                    _rb.AddForce(Vector2.up * 500f);
+                    _rb.AddForce(Vector2.right * 300f);
+                    _rb.AddForce(Vector2.up * 300f);
                 }
                 Invoke("TimeOutAfterDamage", 0.1f);
             }

@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\SavePrefs.cs" />
     <Compile Include="Assets\Scripts\SilverCoinScript.cs" />
+    <Compile Include="Assets\Scripts\Skills.cs" />
     <Compile Include="Assets\Scripts\TakeDamageReaction.cs" />
     <Compile Include="Assets\Scripts\Terrscript.cs" />
     <Compile Include="Assets\Scripts\Victory.cs" />

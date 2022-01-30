@@ -14,7 +14,6 @@ public class CoinsWallet : MonoBehaviour
             if (value < 0)
                 value = 0;
             _coinsInWallet = value;
-            print("Монет собрано " + CoinsInWallet);
         }
     }
     public static void CollectCoin(int value)

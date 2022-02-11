@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-
+﻿using Internal;
+using UnityEngine;
 public class CoinsWallet : MonoBehaviour
 {
     private static int _coinsInWallet = 0;
@@ -16,17 +16,21 @@ public class CoinsWallet : MonoBehaviour
             _coinsInWallet = value;
         }
     }
-    public static void CollectCoin(int value)
+    private void Awake()
+    {
+        Locator.Register<CoinsWallet>(this);
+    }
+    public void CollectCoin(int value)
     {
         CoinsInWallet = CoinsInWallet + value;
         CoinsOnScene.RefreshCoinsValue();
     }
-    public static void LossCoins()
+    public void LossCoins()
     {
         CoinsInWallet -= CoinsInWallet;
         CoinsOnScene.RefreshCoinsValue();
     }
-    public static void LossCoins(int value)
+    public void LossCoins(int value)
     {
         CoinsInWallet -= value;
         CoinsOnScene.RefreshCoinsValue();

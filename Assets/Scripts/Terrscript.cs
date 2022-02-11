@@ -1,9 +1,8 @@
 ﻿using Internal;
 using UnityEngine;
 
-public class Terrscript : Enemies
+public class Terrscript : Enemies, IAffectToHP
 {
-    private GameCore _gameCore;
     private PlayerHP _playerHP;
 
     [SerializeField]
@@ -44,7 +43,6 @@ public class Terrscript : Enemies
 
     private void Start()
     {
-        _gameCore = Locator.GetObject<GameCore>();
         _playerHP = Locator.GetObject<PlayerHP>();
 
         _animator = GetComponent<Animator>();

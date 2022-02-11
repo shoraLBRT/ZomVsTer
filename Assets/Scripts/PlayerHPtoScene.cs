@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHPtoScene : MonoBehaviour
+public class PlayerHPtoScene : MonoBehaviour, IAffectToHP
 {
     private string _textHP;
     private PlayerHP _playerHP;

@@ -8,8 +8,7 @@ public abstract class Enemies : MonoBehaviour
     // Реализация базового класса для всех врагов еще не закончена.
     protected int EnemyHealth;
 
-    protected abstract void TerrAtacking();
     public abstract void DamageToEnemy(int damage);
-
+    protected abstract void TerrAtacking();
     protected abstract void CoinsAfterDie();
 }

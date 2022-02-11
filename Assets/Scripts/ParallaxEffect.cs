@@ -5,7 +5,7 @@ public class ParallaxEffect : MonoBehaviour
     [SerializeField]
     private Transform _folowingTarget;
 
-    [SerializeField, Range(0f, 1f)]
+    [SerializeField, Range(-1f, 1f)]
     private float _parallaxStrenght = 0.1f;
 
     [SerializeField]
@@ -19,7 +19,7 @@ public class ParallaxEffect : MonoBehaviour
         _targetPreviosPosition = _folowingTarget.position;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         var deltaVector3 = _folowingTarget.position - _targetPreviosPosition;
         if (_disableVerticalParallax)

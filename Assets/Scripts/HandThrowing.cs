@@ -7,9 +7,8 @@ public class HandThrowing : Skills
     private Transform HandPoint;
     [SerializeField]
     private GameObject[] _handBullets;
-    [SerializeField]
-    private GameObject _bonesEffect;
 
+    private ParticleSystem _bonesEffect;
     [SerializeField]
     private float _manaCost;
 
@@ -19,6 +18,10 @@ public class HandThrowing : Skills
     private Image _coolDownPanel;
 
     private bool _canHandThrowing = true;
+    private void Start()
+    {
+        _bonesEffect = GetComponent<ParticleSystem>();
+    }
     private void Update()
     {
         if (Input.GetButtonDown("Fire1") && _canHandThrowing)
@@ -27,7 +30,7 @@ public class HandThrowing : Skills
     private void ThrowingAHand()
     {
         _canHandThrowing = false;
-        Instantiate(_bonesEffect, transform.position, Quaternion.identity);
+        _bonesEffect.Play();
         Instantiate(_handBullets[Random.Range(0, _handBullets.Length)], HandPoint.position, HandPoint.rotation);
         StartCoroutine(CoolDowning(_cooldown, _coolDownPanel, resetedCoolDown => _canHandThrowing = resetedCoolDown));
     }

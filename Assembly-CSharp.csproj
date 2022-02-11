@@ -66,10 +66,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BackToMenu.cs" />
     <Compile Include="Assets\Scripts\BeginEndMessage.cs" />
-    <Compile Include="Assets\Scripts\BronzeCoinScript.cs" />
+    <Compile Include="Assets\Scripts\CoinsCollecting.cs" />
     <Compile Include="Assets\Scripts\CoinsOnScene.cs" />
     <Compile Include="Assets\Scripts\CoinsWallet.cs" />
-    <Compile Include="Assets\Scripts\DeadCondition.cs" />
+    <Compile Include="Assets\Scripts\DeathlineTrigger.cs" />
     <Compile Include="Assets\Scripts\DialogManager.cs" />
     <Compile Include="Assets\Scripts\DialogParameters.cs" />
     <Compile Include="Assets\Scripts\DialogTrigger.cs" />
@@ -91,11 +91,11 @@
     <Compile Include="Assets\Scripts\PlayerInMenuDestroy.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\SavePrefs.cs" />
-    <Compile Include="Assets\Scripts\SilverCoinScript.cs" />
+    <Compile Include="Assets\Scripts\SecretCoins.cs" />
     <Compile Include="Assets\Scripts\Skills.cs" />
     <Compile Include="Assets\Scripts\TakeDamageReaction.cs" />
     <Compile Include="Assets\Scripts\Terrscript.cs" />
-    <Compile Include="Assets\Scripts\Victory.cs" />
+    <Compile Include="Assets\Scripts\WinlineTrigger.cs" />
     <None Include="Assets\zombie\License.txt" />
     <None Include="Assets\zombie\README.txt" />
     <None Include="Assets\haloween background\ТХТ\readme.txt" />

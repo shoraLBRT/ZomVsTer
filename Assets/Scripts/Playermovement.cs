@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        NonFriction();
         if (_gameCore.CanMoving & !_gameCore.IsDead)
         {
             MoveLogic();
@@ -75,6 +76,11 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(ResetJumping());
             }
         }
+    }
+    private void NonFriction()
+    {
+        if (_rb.velocity.y == 0 && _rb.velocity.x < 1)
+            _rb.velocity = Vector2.zero;
     }
 
     private IEnumerator ResetJumping()

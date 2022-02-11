@@ -9,9 +9,6 @@ public class TakeDamageReaction : MonoBehaviour
     private SpriteRenderer _spriterend;
 
     private bool _canReset;
-    [SerializeField]
-    private GameObject _enemy;
-
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();

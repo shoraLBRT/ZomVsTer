@@ -16,6 +16,6 @@ public abstract class Skills : MonoBehaviour
             coolDownImage.fillAmount = normalizedValue;
             yield return null;
         }
-        callback(true);
+        callback(false);
     }
 }

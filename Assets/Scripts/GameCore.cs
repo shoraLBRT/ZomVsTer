@@ -11,7 +11,6 @@ public class GameCore : MonoBehaviour
     public bool CanMoving;
     [HideInInspector]
     public bool IsFliped;
-
     void Awake()
     {
         Locator.Register<GameCore>(this);

@@ -12,7 +12,7 @@ public class DeathlineTrigger : MonoBehaviour, IAffectToHP
     {
         if (collision.gameObject.tag == "Player")
         {
-            _playerHP.TakingDamage(999);
+            _playerHP.TakingDamage(_playerHP.PlayerHealth);
         }
     }
 }

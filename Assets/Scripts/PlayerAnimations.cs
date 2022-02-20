@@ -12,26 +12,41 @@ public class PlayerAnimations : MonoBehaviour
     private void Start()
     {
         _gameCore = Locator.GetObject<GameCore>();
-        _rb = GetComponent<Rigidbody2D>();
-        _animatorComponent = GetComponent<Animator>();
+
+        _rb = GetComponentInChildren<Rigidbody2D>();
+        _animatorComponent = GetComponentInChildren<Animator>();
+
     }
     private void Update()
     {
         AnimationSettings();
+        Flip();
+    }
+    void Flip()
+    {
+        if (_rb.velocity.x > 0)
+        {
+            gameObject.transform.localScale = new Vector3(1f, 1, 1);
+            _gameCore.IsFliped = false;
+        }
+        else if (_rb.velocity.x < 0)
+        {
+            _gameCore.IsFliped = true;
+            gameObject.transform.localScale = new Vector3(-1f, 1, 1);
+        }
     }
     private void AnimationSettings()
     {
         if (_rb.velocity.y != 0)
         {
             SetAnimationState(AnimationState.jump);
-        }  
-        if (_rb.velocity.y == 0)
-            if (_rb.velocity.x != 0)
-            {
-                SetAnimationState(AnimationState.walk);
-                if (Input.GetKey(KeyCode.LeftShift))
-                    SetAnimationState(AnimationState.run);
-            }
+        }
+        if (_rb.velocity.y == 0 && _rb.velocity.x != 0)
+        {
+            SetAnimationState(AnimationState.walk);
+            if (Input.GetKey(KeyCode.LeftShift))
+                SetAnimationState(AnimationState.run);
+        }
         if (_rb.velocity.x == 0 && _rb.velocity.y == 0)
             SetAnimationState(AnimationState.idle);
         if (_gameCore.IsHurted)

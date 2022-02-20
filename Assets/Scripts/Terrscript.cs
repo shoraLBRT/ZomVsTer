@@ -6,9 +6,6 @@ public class Terrscript : Enemies, IAffectToHP
     private PlayerHP _playerHP;
 
     [SerializeField]
-    private GameObject _playerGameObj;
-
-    [SerializeField]
     private GameObject _silverCoins;
 
     [SerializeField]
@@ -85,7 +82,7 @@ public class Terrscript : Enemies, IAffectToHP
     }
     void OnCollisionEnter2D(Collision2D playercol)
     {
-        if (playercol.gameObject == _playerGameObj)
+        if (playercol.gameObject.tag == "Player")
         {
             TerrAtacking();
         }

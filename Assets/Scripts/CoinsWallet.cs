@@ -1,5 +1,14 @@
 ﻿using Internal;
 using UnityEngine;
+
+interface ICoinsLossable
+{
+    void LossCoins();
+}
+interface ICoinsCollectable
+{
+    void CollectCoind();
+}
 public class CoinsWallet : MonoBehaviour
 {
     private static int _coinsInWallet = 0;

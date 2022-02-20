@@ -12,13 +12,11 @@ public class PlayerMovement : MonoBehaviour
     private bool _canJump;
 
     private Rigidbody2D _rb;
-    private SpriteRenderer _spriterend;
 
     private void Start()
     {
         _gameCore = Locator.GetObject<GameCore>();
-        _rb = GetComponent<Rigidbody2D>();
-        _spriterend = GetComponent<SpriteRenderer>();
+        _rb = GetComponentInChildren<Rigidbody2D>();
 
         _gameCore.IsDead = false;
         _gameCore.CanMoving = true;
@@ -33,27 +31,12 @@ public class PlayerMovement : MonoBehaviour
         if (_gameCore.CanMoving & !_gameCore.IsDead)
         {
             MoveLogic();
-            Flip();
         }
     }
     private void Update()
     {
         if(_gameCore.CanMoving & !_gameCore.IsDead)
             JumpLogic();
-    }
-    void Flip()
-    {
-        if (_horiz > 0)
-        {
-            _gameCore.IsFliped = false;
-            _spriterend.flipX = false;
-        }
-        if (_horiz < 0)
-        {
-            _gameCore.IsFliped = true;
-            _spriterend.flipX = true;
-        }
-
     }
     private void MoveLogic()
     {

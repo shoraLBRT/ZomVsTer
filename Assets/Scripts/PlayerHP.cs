@@ -22,8 +22,7 @@ public class PlayerHP : MonoBehaviour
             if (value <= 0)
             {
                 value = 0;
-                _gameCore.IsDead = true;
-                Invoke("Restartlvl", 3);
+                DeathProcess();
             }
 
             _playerHealth = value;
@@ -42,9 +41,14 @@ public class PlayerHP : MonoBehaviour
     public void TakingDamage(int Damage)
     {
         _coinsWallet.LossCoins(1);
-        _gameCore.IsHurted = true;
         PlayerHealth -= Damage;
         _playerHPonScene.RefreshHPValue();
+    }
+    private void DeathProcess()
+    {
+        _coinsWallet.LossCoins();
+        _gameCore.IsDead = true;
+        Invoke("Restartlvl", 3);
     }
     private void Restartlvl()
     {

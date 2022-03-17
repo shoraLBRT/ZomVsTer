@@ -9,9 +9,12 @@ public class Terrscript : Enemies, IAffectToHP
     private GameObject _silverCoins;
 
     [SerializeField]
-    private GameObject _pointA;
+    private Transform _pointA;
     [SerializeField]
-    private GameObject _pointB;
+    private Transform _pointB;
+
+    private float _savedPointA;
+    private float _savedPointB;
 
     private bool _TerOnA;
     private bool _terAttacking;
@@ -45,6 +48,9 @@ public class Terrscript : Enemies, IAffectToHP
         _animator = GetComponent<Animator>();
         _terspriterend = GetComponent<SpriteRenderer>();
 
+        _savedPointA = _pointA.position.x;
+        _savedPointB = _pointB.position.x;
+
         _TerOnA = false;
         _terAttacking = false;
         _terIsDead = false;
@@ -54,33 +60,33 @@ public class Terrscript : Enemies, IAffectToHP
         switch (_TerOnA)
         {
             case true:
-                EnemyWalkingToPoint(_pointB);
+                EnemyWalkingToPoint(_savedPointB);
                 _terspriterend.flipX = false;
                 break;
             case (false):
-                EnemyWalkingToPoint(_pointA);
+                EnemyWalkingToPoint(_savedPointA);
                 _terspriterend.flipX = true;
                 break;
         }
     }
-    void returnToWalking()
+    private void returnToWalking()
     {
         _terAttacking = false;
         SetAnimationState(AnimationState.idle);
     }
-    void EnemyWalkingToPoint(GameObject pointName)
+    private void EnemyWalkingToPoint(float pointName)
     {
         if (_terAttacking == false && _terIsDead == false)
         {
             SetAnimationState(AnimationState.walk);
-            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, new Vector2(pointName.transform.position.x, gameObject.transform.position.y), _terSpeed * Time.deltaTime);
-            if (gameObject.transform.position.x == pointName.transform.position.x)
+            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, new Vector2(pointName, gameObject.transform.position.y), _terSpeed * Time.deltaTime);
+            if (gameObject.transform.position.x == pointName)
             {
                 _TerOnA = !_TerOnA;
             }
         }
     }
-    void OnCollisionEnter2D(Collision2D playercol)
+    private void OnCollisionEnter2D(Collision2D playercol)
     {
         if (playercol.gameObject.tag == "Player")
         {

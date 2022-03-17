@@ -1,19 +1,14 @@
-﻿using Internal;
-using UnityEngine;
+﻿using UnityEngine;
+using Internal;
 
-interface ICamFolowable { };
 public class CameraController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _playerObj;
+
+    public GameObject PlayerObj;
 
     private GameObject _currentFolowingTarget;
-    public GameObject CurrentFolowingTarget { get => _currentFolowingTarget; set => _currentFolowingTarget = value; }
 
-    private Camera _camera;
-    private float _camScale;
-    public float CamScale { get => _camScale; set => _camScale = value; }
-    public GameObject PlayerObj { get => _playerObj; set => _playerObj = value; }
+    public GameObject CurrentFolowingTarget { get => _currentFolowingTarget; set => _currentFolowingTarget = value; }
 
     private void Awake()
     {
@@ -21,13 +16,12 @@ public class CameraController : MonoBehaviour
     }
     private void Start()
     {
-        _camera = gameObject.GetComponent<Camera>();
+        if (CurrentFolowingTarget == null)
+            CurrentFolowingTarget = PlayerObj;
     }
     private void LateUpdate()
     {
-        _camera.orthographicSize = CamScale;
-        if (CurrentFolowingTarget != null)
-            transform.position = new Vector3(CurrentFolowingTarget.transform.position.x, CurrentFolowingTarget.transform.position.y, -10f);
+        transform.position = new Vector3(CurrentFolowingTarget.transform.position.x, CurrentFolowingTarget.transform.position.y, -10f);
         CameraLimiter();
     }
     public void ChangeFolowingCam(GameObject newTarget)

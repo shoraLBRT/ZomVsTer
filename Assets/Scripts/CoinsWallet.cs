@@ -7,7 +7,7 @@ interface ICoinsLossable
 }
 interface ICoinsCollectable
 {
-    void CollectCoin();
+    void CollectCoind();
 }
 public class CoinsWallet : MonoBehaviour
 {

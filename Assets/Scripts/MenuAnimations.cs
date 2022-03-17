@@ -14,7 +14,7 @@ public class MenuAnimations : MonoBehaviour
     public void Panel1ContinueGame()
     {
         _animator1panel.SetInteger("tapState", 1);
-        Invoke(nameof(ContinueGame), 1);
+        Invoke("ContinueGame", 1);
     }
     public void Panel1Levels()
     {

@@ -100,7 +100,7 @@ public class Terrscript : Enemies, IAffectToHP
             SetAnimationState(AnimationState.attack);
             _terAttacking = true;
             _playerHP.TakingDamage(20);
-            Invoke(nameof(returnToWalking), 1f);
+            Invoke("returnToWalking", 1f);
         }
     }
 

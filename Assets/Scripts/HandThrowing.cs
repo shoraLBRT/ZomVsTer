@@ -4,13 +4,11 @@ using UnityEngine.UI;
 public class HandThrowing : Skills
 {
     [SerializeField]
-    private GameObject _handPoint;
-
-    private ParticleSystem _bonesEffect;
-
+    private Transform HandPoint;
     [SerializeField]
     private GameObject[] _handBullets;
 
+    private ParticleSystem _bonesEffect;
     [SerializeField]
     private float _manaCost;
 
@@ -22,7 +20,7 @@ public class HandThrowing : Skills
     private bool _isCoolDowning = false;
     private void Start()
     {
-        _bonesEffect = _handPoint.GetComponent<ParticleSystem>();
+        _bonesEffect = GetComponent<ParticleSystem>();
     }
     private void Update()
     {
@@ -33,7 +31,7 @@ public class HandThrowing : Skills
     {
         _isCoolDowning = true;
         _bonesEffect.Play();
-        Instantiate(_handBullets[Random.Range(0, _handBullets.Length)], _handPoint.transform.position, _handPoint.transform.rotation);
+        Instantiate(_handBullets[Random.Range(0, _handBullets.Length)], HandPoint.position, HandPoint.rotation);
         StartCoroutine(CoolDowning(_cooldown, _coolDownPanel, resetedCoolDown => _isCoolDowning = resetedCoolDown));
     }
 }

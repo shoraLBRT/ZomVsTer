@@ -20,7 +20,7 @@ public class BeginEndMessage : MonoBehaviour
         _gameCore = Locator.GetObject<GameCore>();
         _beginingCanvas.SetActive(true);
         _beginingImage.CrossFadeAlpha(0, 2f, false);
-        Invoke(nameof(DisableBegining), 1.5f);
+        Invoke("DisableBegining", 1.5f);
         _endingCanvas.SetActive(false);
 
     }

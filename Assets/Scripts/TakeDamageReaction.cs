@@ -29,7 +29,7 @@ public class TakeDamageReaction : MonoBehaviour
             {
                 RightRebind();
             }
-            Invoke(nameof(ResetFromDamage), 0.4f);
+            Invoke("ResetFromDamage", 0.4f);
         }
     }
     private void LeftRebind()

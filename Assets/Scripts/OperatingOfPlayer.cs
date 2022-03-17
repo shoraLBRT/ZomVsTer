@@ -3,16 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OperationDisabled : OperatingState
+public class OperatingOfPlayer : OperatingState
 {
-    protected override void CamFolowing()
-    {
-        throw new System.NotImplementedException();
-    }
+    private CameraController _cameraController;
 
     public override void Enter()
     {
-        throw new System.NotImplementedException();
+        _cameraController = Locator.GetObject<CameraController>();
+        CamFolowing();
+    }
+    protected override void CamFolowing()
+    {
+        _cameraController.ChangeFolowingCam(_cameraController.PlayerObj);
     }
 
     public override void Exit()

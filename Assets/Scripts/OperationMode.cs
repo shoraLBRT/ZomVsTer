@@ -1,20 +1,13 @@
-﻿using Internal;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OperationMode : MonoBehaviour
 {
-    private Dictionary<Type, IOperatingState> _statesGroup;
-    private IOperatingState _currentState;
+    private Dictionary<Type, OperatingState> _statesGroup;
+    private OperatingState _currentState;
 
-    [SerializeField]
-    private OperatingOfZombie _operatingOfZombie;
-
-    private void Awake()
-    {
-        Locator.Register<OperationMode>(this);
-    }
     private void Start()
     {
         InitStates();
@@ -22,47 +15,45 @@ public class OperationMode : MonoBehaviour
     }
     private void InitStates()
     {
-        _statesGroup = new Dictionary<Type, IOperatingState>();
-        _statesGroup[typeof(OperatingOfZombie)] = _operatingOfZombie;
+        _statesGroup = new Dictionary<Type, OperatingState>();
+        _statesGroup[typeof(OperatingOfPlayer)] = new OperatingOfPlayer();
         _statesGroup[typeof(OperatingOfBodyParts)] = new OperatingOfBodyParts();
         _statesGroup[typeof(OperationDisabled)] = new OperationDisabled();
     }
-    private void SetState(IOperatingState newState)
+    private void SetState(OperatingState newState)
     {
         if (_currentState != null)
-        {
             _currentState.Exit();
-        }
         _currentState = newState;
         _currentState.Enter();
     }
-    public void SetStateByDefault()
+    private void SetStateByDefault()
     {
-        SetStateOperationOfZombie();
+        SetStateOperationOfPlayer();
     }
-    private IOperatingState GetState<T>() where T : IOperatingState
+    private OperatingState GetState<T>() where T : OperatingState
     {
         var type = typeof(T);
         return _statesGroup[type];
     }
-    private void Update()
+    //private void Update()
+    //{
+    //    if (_currentState != null)
+    //        _currentState.Update();
+    //}
+    public void SetStateOperationOfPlayer()
     {
-        if (_currentState != null)
-            _currentState.Update();
-    }
-    public void SetStateOperationOfZombie()
-    {
-        IOperatingState state = GetState<OperatingOfZombie>();
+        OperatingState state = GetState<OperatingOfPlayer>();
         SetState(state);
     }
     public void SetStateOperationOfBodyParts()
     {
-        IOperatingState state = GetState<OperatingOfBodyParts>();
+        OperatingState state = GetState<OperatingOfBodyParts>();
         SetState(state);
     }
     public void SetStateOperationDisabled()
     {
-        IOperatingState state = GetState<OperationDisabled>();
+        OperatingState state = GetState<OperationDisabled>();
         SetState(state);
     }
 }

@@ -1,25 +1,22 @@
-﻿using UnityEngine;
-using Internal;
-using System.Collections;
-public class PlayerMovement : MonoBehaviour
+﻿using System.Collections;
+using UnityEngine;
+public class ZombieMovement : MonoBehaviour
 {
-    private GameCore _gameCore;
-
     private float zom_walk;
     private float zom_run;
     private float _horiz;
 
     private bool _canJump;
 
+    private bool _canMoving;
+
     private Rigidbody2D _rb;
+
+    public bool CanMoving { get => _canMoving; set => _canMoving = value; }
 
     private void Start()
     {
-        _gameCore = Locator.GetObject<GameCore>();
-        _rb = GetComponentInChildren<Rigidbody2D>();
-
-        _gameCore.IsDead = false;
-        _gameCore.CanMoving = true;
+        _rb = GetComponent<Rigidbody2D>();
         _canJump = true;
 
         zom_walk = 9f;
@@ -27,15 +24,15 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        NonFriction();
-        if (_gameCore.CanMoving & !_gameCore.IsDead)
+        if (CanMoving)
         {
+            NonFriction();
             MoveLogic();
         }
     }
     private void Update()
     {
-        if(_gameCore.CanMoving & !_gameCore.IsDead)
+        if (CanMoving)
             JumpLogic();
     }
     private void MoveLogic()
@@ -72,18 +69,4 @@ public class PlayerMovement : MonoBehaviour
             WaitForSeconds(0.2f);
         _canJump = true;
     }
-
-    //void OnCollisionStay2D(Collision2D grounded) // пока что этот флажок не нужен. Его роль играет _rb.velocity.y == 0
-    //{
-    //    IsGroundedUpdate(grounded, true);
-    //}
-    //private void OnCollisionExit2D(Collision2D grounded)
-    //{
-    //    IsGroundedUpdate(grounded, false);
-    //}
-    //private void IsGroundedUpdate(Collision2D grounded, bool value)
-    //{
-    //    if (grounded.gameObject.tag == ("Ground"))
-    //        _gameCore.IsGrounded = value;
-    //}
 }

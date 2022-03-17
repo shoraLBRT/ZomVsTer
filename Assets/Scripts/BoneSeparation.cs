@@ -1,13 +1,22 @@
-﻿using UnityEngine;
+﻿using Internal;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class BoneSeparation : Skills
 {
+    private OperationMode _operationMode;
+
     [SerializeField]
-    private GameObject[] _separatedBones;
+    private GameObject[] _shouldSeparateBones;
+    public Queue<GameObject> SeparatedBones;
 
     [SerializeField]
     private GameObject _playerViewModel;
+    [SerializeField]
+    private GameObject _playerModel;
+    [SerializeField]
+    private GameObject _separationPoint;
 
     [SerializeField]
     private float _cooldown = 10f;
@@ -19,14 +28,23 @@ public class BoneSeparation : Skills
 
     private ParticleSystem _explosionEffect;
 
-    private BoxCollider2D _boxCol;
-    private Rigidbody2D _rb;
+    //средства исчезновения зомби, не очень красиво, но пока лучше не умею.
+    private BoxCollider2D _zomBoxCol;
+    private Rigidbody2D _zomRigidBody;
+
+    private void Awake()
+    {
+        Locator.Register<BoneSeparation>(this);
+    }
     private void Start()
     {
-        _explosionEffect = GetComponent<ParticleSystem>();
-        _boxCol = GetComponentInParent<BoxCollider2D>();
-        _rb = GetComponentInParent<Rigidbody2D>();
+        _operationMode = Locator.GetObject<OperationMode>();
 
+        _explosionEffect = _separationPoint.GetComponent<ParticleSystem>();
+        _zomBoxCol = _playerModel.GetComponent<BoxCollider2D>();
+        _zomRigidBody = _playerModel.GetComponent<Rigidbody2D>();
+
+        SeparatedBones = new Queue<GameObject>();
         _isSeparated = false;
     }
     private void Update()
@@ -38,38 +56,45 @@ public class BoneSeparation : Skills
     }
     private void BodySeparate()
     {
-        Vector3 _playerPos = _playerViewModel.transform.position;
+        _operationMode.SetStateOperationOfBodyParts();
 
+        Vector3 _playerPos = _playerViewModel.transform.position;
         PlayerVisible(false);
-        _explosionEffect.Play();
         _isCoolDowning = true;
         _isSeparated = true;
 
-        for (int i = 0; i < _separatedBones.Length; i++)
+        _explosionEffect.Play();
+
+        foreach (GameObject bone in _shouldSeparateBones)
         {
-            Instantiate(_separatedBones[i], new Vector3(Random.Range(_playerPos.x - 1f, _playerPos.x + 1f), Random.Range(_playerPos.y - 0f, _playerPos.y + 2f)), Quaternion.identity);
+            bone.transform.position = new Vector3(Random.Range(_playerPos.x - 1f, _playerPos.x + 1f), Random.Range(_playerPos.y - 0f, _playerPos.y + 2f), _playerPos.z);
+            bone.SetActive(true);
+            SeparatedBones.Enqueue(bone);
         }
         StartCoroutine(CoolDowning(_cooldown, _coolDownPanel, resetedCoolDown => _isCoolDowning = resetedCoolDown));
     }
-    private void BodyAssemble()
+    public void BodyAssemble()
     {
-        for (int i = 0; i < _separatedBones.Length; i++)
-        {
-            Destroy(_separatedBones[i]);
-        }
+        _explosionEffect.Play();
         PlayerVisible(true);
+        _isSeparated = false;
+
+        foreach (GameObject bone in _shouldSeparateBones)
+            bone.SetActive(false);
+
+        _operationMode.SetStateOperationOfZombie();
     }
     private void PlayerVisible(bool isVisible)
     {
-        _boxCol.isTrigger = !isVisible;
+        _zomBoxCol.isTrigger = !isVisible;
         _playerViewModel.SetActive(isVisible);
         switch (isVisible)
         {
             case true:
-                _rb.bodyType = RigidbodyType2D.Dynamic;
+                _zomRigidBody.bodyType = RigidbodyType2D.Dynamic;
                 break;
             case false:
-                _rb.bodyType = RigidbodyType2D.Static;
+                _zomRigidBody.bodyType = RigidbodyType2D.Static;
                 break;
         }
     }

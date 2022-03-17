@@ -71,6 +71,7 @@
     <Compile Include="Assets\Samples\Input System\1.3.0\Simple Demo\SimpleControls.cs" />
     <Compile Include="Assets\Scripts\BackToMenu.cs" />
     <Compile Include="Assets\Scripts\BeginEndMessage.cs" />
+    <Compile Include="Assets\Scripts\BodyPartMovement.cs" />
     <Compile Include="Assets\Scripts\BoneSeparation.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CoinsCollecting.cs" />
@@ -86,13 +87,13 @@
     <Compile Include="Assets\Scripts\HandThrowing.cs" />
     <Compile Include="Assets\Scripts\HeadDestroy.cs" />
     <Compile Include="Assets\Scripts\HeadsBackground.cs" />
+    <Compile Include="Assets\Scripts\IOperatingState.cs" />
     <Compile Include="Assets\Scripts\InputSystem.cs" />
     <Compile Include="Assets\Scripts\Locator.cs" />
     <Compile Include="Assets\Scripts\Menu2.cs" />
     <Compile Include="Assets\Scripts\MenuAnimations.cs" />
     <Compile Include="Assets\Scripts\OperatingOfBodyParts.cs" />
-    <Compile Include="Assets\Scripts\OperatingOfPlayer.cs" />
-    <Compile Include="Assets\Scripts\OperatingState.cs" />
+    <Compile Include="Assets\Scripts\OperatingOfZombie.cs" />
     <Compile Include="Assets\Scripts\OperationDisabled.cs" />
     <Compile Include="Assets\Scripts\OperationMode.cs" />
     <Compile Include="Assets\Scripts\ParallaxEffect.cs" />
@@ -101,7 +102,6 @@
     <Compile Include="Assets\Scripts\PlayerHPtoScene.cs" />
     <Compile Include="Assets\Scripts\PlayerInMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerInMenuDestroy.cs" />
-    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\SavePrefs.cs" />
     <Compile Include="Assets\Scripts\SecretCoins.cs" />
     <Compile Include="Assets\Scripts\Skills.cs" />
@@ -109,6 +109,7 @@
     <Compile Include="Assets\Scripts\Terrscript.cs" />
     <Compile Include="Assets\Scripts\Trumpline.cs" />
     <Compile Include="Assets\Scripts\WinlineTrigger.cs" />
+    <Compile Include="Assets\Scripts\ZombieMovement.cs" />
     <None Include="Assets\zombie\License.txt" />
     <None Include="Assets\zombie\README.txt" />
     <None Include="Assets\haloween background\ТХТ\readme.txt" />

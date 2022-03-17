@@ -7,11 +7,11 @@ public class SecretCoins : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
-            Invoke("Instantiating", 0.5f);
+            Invoke(nameof(Instantiating), 0.5f);
     }
     private void Instantiating()
     {
         Instantiate(_goldCoin, gameObject.transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

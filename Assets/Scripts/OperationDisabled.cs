@@ -3,25 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OperationDisabled : OperatingState
+public class OperationDisabled : IOperatingState, ICamFolowable
 {
-    protected override void CamFolowing()
+    private CameraController _cameraController;
+    private float _camScale = 0.1f;
+    public void CamFolowing(GameObject targetForFolowing, float camScale)
     {
-        throw new System.NotImplementedException();
+        _cameraController.ChangeFolowingCam(targetForFolowing);
+        _cameraController.CamScale = camScale;
     }
 
-    public override void Enter()
+    public void Enter()
     {
-        throw new System.NotImplementedException();
+        _cameraController = Locator.GetObject<CameraController>();
+        Debug.Log("не управляю ничем");
+        CamFolowing(_cameraController.PlayerObj, _camScale);
     }
 
-    public override void Exit()
+    public void Exit()
     {
-        throw new System.NotImplementedException();
     }
 
-    public override void Update()
+    public void Update()
     {
-        throw new System.NotImplementedException();
     }
 }

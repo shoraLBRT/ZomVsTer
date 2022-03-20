@@ -7,20 +7,12 @@ public class OperatingOfZombie : MonoBehaviour, IOperatingState, ICamFolowable
     private Skills _skills;
 
     private ZombieMovement _movementComponent;
-
-    // Отключаемые скиллы
-    private HandThrowing _handThrowingSkill;
-    private BoneSeparation _boneSeparationSkill;
     private void Awake()
     {
         _cameraController = Locator.GetObject<CameraController>();
         _skills = Locator.GetObject<Skills>();
 
-
         _movementComponent = gameObject.GetComponent<ZombieMovement>();
-
-        _handThrowingSkill = GetComponentInChildren<HandThrowing>();
-        _boneSeparationSkill = GetComponentInChildren<BoneSeparation>();
     }
     public void Enter()
     {
@@ -38,13 +30,12 @@ public class OperatingOfZombie : MonoBehaviour, IOperatingState, ICamFolowable
 
         _movementComponent.enabled = false;
     }
-    public void Update()
-    {
-
-    }
     public void CamFolowing(GameObject targetForFolowing, float camScale)
     {
         _cameraController.ChangeFolowingCam(targetForFolowing);
         _cameraController.CamScale = camScale;
+    }
+    void IOperatingState.Update()
+    {
     }
 }

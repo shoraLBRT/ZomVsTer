@@ -1,14 +1,14 @@
 ﻿using Internal;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 interface IAffectToHP { }
 public class PlayerHP : MonoBehaviour
 {
-    private PlayerHPtoScene _playerHPonScene;
     private GameCore _gameCore;
+    private PlayerHPtoScene _playerHPonScene;
     private CoinsWallet _coinsWallet;
     private OperationMode _operationMode;
+    private RestartLVL _restartLVL;
 
     [HideInInspector]
     public int Damage;
@@ -39,6 +39,7 @@ public class PlayerHP : MonoBehaviour
         _playerHPonScene = Locator.GetObject<PlayerHPtoScene>();
         _coinsWallet = Locator.GetObject<CoinsWallet>();
         _operationMode = Locator.GetObject<OperationMode>();
+        _restartLVL = Locator.GetObject<RestartLVL>();
     }
     public void TakingDamage(int Damage)
     {
@@ -50,13 +51,11 @@ public class PlayerHP : MonoBehaviour
     {
         _coinsWallet.LossCoins();
         _gameCore.IsDead = true;
-        Invoke(nameof(Restartlvl), 3);
+        Invoke(nameof(Restarting), 3);
+        _operationMode.SetStateOperationDisabled();
     }
-    private void Restartlvl()
+    private void Restarting()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        _gameCore.IsDead = false;
-        _operationMode.SetStateByDefault();
+        _restartLVL.Restartlvl();
     }
-
 }

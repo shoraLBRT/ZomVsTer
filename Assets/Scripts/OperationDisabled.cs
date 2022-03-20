@@ -6,7 +6,7 @@ using UnityEngine;
 public class OperationDisabled : IOperatingState, ICamFolowable
 {
     private CameraController _cameraController;
-    private float _camScale = 0.1f;
+    private float _camScale = 4.1f;
     public void CamFolowing(GameObject targetForFolowing, float camScale)
     {
         _cameraController.ChangeFolowingCam(targetForFolowing);
@@ -17,7 +17,7 @@ public class OperationDisabled : IOperatingState, ICamFolowable
     {
         _cameraController = Locator.GetObject<CameraController>();
         Debug.Log("не управляю ничем");
-        CamFolowing(_cameraController.PlayerObj, _camScale);
+        CamFolowing(_cameraController.CurrentFolowingTarget, _camScale);
     }
 
     public void Exit()

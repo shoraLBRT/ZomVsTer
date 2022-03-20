@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scripts\PlayerHPtoScene.cs" />
     <Compile Include="Assets\Scripts\PlayerInMenuDestroy.cs" />
     <Compile Include="Assets\Scripts\PlayerinMenu.cs" />
+    <Compile Include="Assets\Scripts\RestartLVL.cs" />
     <Compile Include="Assets\Scripts\SavePrefs.cs" />
     <Compile Include="Assets\Scripts\SecretCoins.cs" />
     <Compile Include="Assets\Scripts\Skills.cs" />

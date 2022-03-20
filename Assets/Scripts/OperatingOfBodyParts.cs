@@ -8,6 +8,8 @@ public class OperatingOfBodyParts : IOperatingState, ICamFolowable
     private Queue<GameObject> _operationPool;
     private GameObject _currentOperationBodyPart;
 
+    private BodyPartMovement _currentBodyPartMovement;
+
     private CameraController _cameraController;
 
     private BoneSeparation _boneSeparation;
@@ -28,23 +30,24 @@ public class OperatingOfBodyParts : IOperatingState, ICamFolowable
     }
     private void NextBodyPart()
     {
-        if(_currentOperationBodyPart !=null)
-            _currentOperationBodyPart.GetComponent<BodyPartMovement>().enabled = false;
+        if (_currentOperationBodyPart != null)
+            _currentBodyPartMovement.enabled = false;
         if (_operationPool.Count == 0)
         {
             _boneSeparation.BodyAssemble();
             return;
         }
         _currentOperationBodyPart = _operationPool.Dequeue();
-        _currentOperationBodyPart.GetComponent<BodyPartMovement>().enabled = true;
+        _currentBodyPartMovement = _currentOperationBodyPart.GetComponent<BodyPartMovement>();
+        _currentBodyPartMovement.enabled = true;
         CamFolowing(_currentOperationBodyPart, 4f);
         Debug.Log("сейчас управляю" + _currentOperationBodyPart);
     }
     public void Exit()
     {
+        _currentBodyPartMovement.enabled = false;
         Debug.Log("вышел из управления телом");
     }
-    
     public void Update()
     {
         if (Input.GetButtonDown("Fire1"))

@@ -1,7 +1,10 @@
 ﻿using Internal;
 using UnityEngine;
 
-interface ICamFolowable { };
+interface ICamFolowable
+{
+    void CamFolowing(GameObject targetForFolowing, float camScale);
+};
 public class CameraController : MonoBehaviour
 {
     [SerializeField]

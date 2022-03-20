@@ -8,11 +8,7 @@ public class ZombieMovement : MonoBehaviour
 
     private bool _canJump;
 
-    private bool _canMoving;
-
     private Rigidbody2D _rb;
-
-    public bool CanMoving { get => _canMoving; set => _canMoving = value; }
 
     private void Start()
     {
@@ -24,16 +20,12 @@ public class ZombieMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (CanMoving)
-        {
-            NonFriction();
-            MoveLogic();
-        }
+        NonFriction();
+        MoveLogic();
     }
     private void Update()
     {
-        if (CanMoving)
-            JumpLogic();
+        JumpLogic();
     }
     private void MoveLogic()
     {

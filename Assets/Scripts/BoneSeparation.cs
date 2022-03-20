@@ -28,7 +28,6 @@ public class BoneSeparation : Skills
 
     private ParticleSystem _explosionEffect;
 
-    //средства исчезновения зомби, не очень красиво, но пока лучше не умею.
     private BoxCollider2D _zomBoxCol;
     private Rigidbody2D _zomRigidBody;
 
@@ -49,10 +48,8 @@ public class BoneSeparation : Skills
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Fire2") && !_isSeparated && !_isCoolDowning)
+        if (Input.GetButtonDown("Fire2") && !_isSeparated && !_isCoolDowning && CanBoneSeparation)
             BodySeparate();
-        if (Input.GetButtonDown("Fire3") && _isSeparated)
-            BodyAssemble();
     }
     private void BodySeparate()
     {

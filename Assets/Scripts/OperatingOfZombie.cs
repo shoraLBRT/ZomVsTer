@@ -4,31 +4,39 @@ using UnityEngine;
 public class OperatingOfZombie : MonoBehaviour, IOperatingState, ICamFolowable
 {
     private CameraController _cameraController;
+    private Skills _skills;
+
     private ZombieMovement _movementComponent;
 
     // Отключаемые скиллы
-    [SerializeField]
-    private GameObject _handThrowingSkill;
-    [SerializeField]
-    private GameObject _boneSeparationSkill;
+    private HandThrowing _handThrowingSkill;
+    private BoneSeparation _boneSeparationSkill;
     private void Awake()
     {
+        _cameraController = Locator.GetObject<CameraController>();
+        _skills = Locator.GetObject<Skills>();
+
+
         _movementComponent = gameObject.GetComponent<ZombieMovement>();
 
-        _cameraController = Locator.GetObject<CameraController>();
+        _handThrowingSkill = GetComponentInChildren<HandThrowing>();
+        _boneSeparationSkill = GetComponentInChildren<BoneSeparation>();
     }
     public void Enter()
     {
         CamFolowing(gameObject, 4.5f);
+
+        _skills.SetCanBoneSeparation(true);
+        _skills.SetCanHandThrowing(true);
+
         _movementComponent.enabled = true;
-        _handThrowingSkill.SetActive(true);
-        _movementComponent.CanMoving = true;
     }
     public void Exit()
     {
+        _skills.SetCanBoneSeparation(false);
+        _skills.SetCanHandThrowing(false);
+
         _movementComponent.enabled = false;
-        _handThrowingSkill.SetActive(false);
-        _movementComponent.CanMoving = false;
     }
     public void Update()
     {

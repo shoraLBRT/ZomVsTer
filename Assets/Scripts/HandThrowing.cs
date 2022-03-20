@@ -26,7 +26,7 @@ public class HandThrowing : Skills
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1") && !_isCoolDowning)
+        if (Input.GetButtonDown("Fire1") && !_isCoolDowning && CanHandThrowing)
             ThrowingAHand();
     }
     private void ThrowingAHand()

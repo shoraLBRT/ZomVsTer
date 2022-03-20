@@ -15,6 +15,7 @@ public class OperatingOfBodyParts : IOperatingState, ICamFolowable
     {
         _cameraController = Locator.GetObject<CameraController>();
         _boneSeparation = Locator.GetObject<BoneSeparation>();
+
         await OperationPoolBuilding();
         if (_operationPool.Count != 0)
             NextBodyPart();
@@ -48,6 +49,8 @@ public class OperatingOfBodyParts : IOperatingState, ICamFolowable
     {
         if (Input.GetButtonDown("Fire1"))
             NextBodyPart();
+        if (Input.GetButtonDown("Fire3"))
+            _boneSeparation.BodyAssemble();
     }
 
     public void CamFolowing(GameObject targetForFolowing, float camScale)
